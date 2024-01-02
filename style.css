@@ -292,3 +292,19 @@ canvas {
 .exercise-dropdown {
     margin-bottom: 10px;
 }
+
+#toggleChatbotBtn {
+    position: fixed; /* Position it on the page */
+    bottom: 20px; /* Example positioning */
+    right: 340px; /* Adjust as needed */
+    padding: 10px;
+    background-color: #4CAF50; /* Example color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#toggleChatbotBtn:hover {
+    background-color: #45a049; /* Darker shade on hover */
+}
