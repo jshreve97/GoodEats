@@ -1,0 +1,294 @@
+/* Basic Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #444;
+}
+
+header {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 1.5em 0;
+    font-size: 26px;
+}
+
+main, #recipe-details-page {
+    padding: 25px;
+    margin: auto;
+    max-width: 800px;
+}
+
+.recipe-item, #recipe-details-content {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recipe-item h3 {
+    margin: 0 0 15px 0;
+    cursor: pointer;
+    color: #3498db;
+}
+
+.recipe-item p, #recipe-details-content p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.recipe-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Button Styles */
+#recipe-details-page button, .second-page-button, .home-button, #login-container button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s, transform 0.3s;
+    text-decoration: none;
+}
+
+#recipe-details-page button:hover, .second-page-button:hover, .home-button:hover, #login-container button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Input Styles */
+#search-input, #login-container input[type="text"], #login-container input[type="password"] {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s;
+}
+
+#search-input:focus, #login-container input[type="text"]:focus, #login-container input[type="password"]:focus {
+    border-color: #3498db;
+}
+
+/* Tracker and Card Styles */
+.tracker-section, .progress-section {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    display: inline-block;
+    margin: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.big-number {
+    font-size: 2.2em;
+    color: #27ae60;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 25px 0;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+/* Login Page Styles */
+#login-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+    margin: 50px auto;
+}
+
+/* Second Page Button Container */
+.second-page-button-container {
+    position: fixed;
+    top: 200px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* Fitness Tracker Page Styles */
+.tracker-section, .progress-section {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    display: inline-block;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Additional Hover Effects */
+.recipe-item h3:hover, .second-page-button:hover, .home-button:hover, #login-container button:hover, #recipe-details-page button:hover {
+    opacity: 0.9;
+}
+
+/* Improved Form Styling */
+#search-input, #login-container input[type="text"], #login-container input[type="password"] {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#search-input:focus, #login-container input[type="text"]:focus, #login-container input[type="password"]:focus {
+    border-color: #3498db;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2), 0 0 8px rgba(52, 152, 219, 0.6);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    body {
+        font-size: 90%;
+    }
+
+    header {
+        padding: 1em 0;
+        font-size: 20px;
+    }
+
+    .recipe-item, #recipe-details-content, .card, #login-container {
+        padding: 15px;
+    }
+
+    .recipe-item h3, .tracker-section h2 {
+        font-size: 18px;
+    }
+
+    #search-input, #login-container input, #login-container button {
+        font-size: 14px;
+    }
+
+    .second-page-button-container {
+        right: 10px;
+    }
+
+    #chatbot-container {
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .second-page-button-container {
+        top: 160px;
+        right: 10px;
+    }
+}
+
+/* Exercise Input Style */
+#exerciseInput {
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Canvas Style */
+canvas {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+/* Chatbot Container Style */
+#chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+#chatbot-messages {
+    height: 150px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#chatbotInput {
+    width: calc(100% - 90px);
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#chatbotSendBtn {
+    width: 80px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#chatbotSendBtn:hover {
+    background-color: #45a049;
+}
+
+.accordion {
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    background-color: #eee;
+    margin-top: 5px;
+}
+
+.active, .accordion:hover {
+    background-color: #ccc;
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+
+.exercise-dropdown {
+    margin-bottom: 10px;
+}
