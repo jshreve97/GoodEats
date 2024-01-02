@@ -191,9 +191,15 @@ footer {
 
     #chatbot-container {
         width: 100%;
-        bottom: 0;
+        bottom: 50px;
         right: 0;
         border-radius: 0;
+    }
+
+    #toggleChatbotBtn {
+        right: 10px;
+        bottom: 10px;
+        font-size: 14px;
     }
 }
 
@@ -294,17 +300,19 @@ canvas {
 }
 
 #toggleChatbotBtn {
-    position: fixed; /* Position it on the page */
-    bottom: 20px; /* Example positioning */
-    right: 340px; /* Adjust as needed */
-    padding: 10px;
-    background-color: #4CAF50; /* Example color */
+    position: fixed;
+    bottom: 20px; 
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    z-index: 1001;
 }
 
 #toggleChatbotBtn:hover {
-    background-color: #45a049; /* Darker shade on hover */
+    background-color: #45a049;
 }
