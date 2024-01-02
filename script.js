@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const sheetId = '16XihpA3z4QLKG-mvN8thZUWto4F55rR7GXxKD92aWvo';
     const sheetName = 'recipes';
 
-    // Fetching data from Google Sheets API
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}!A:Z?key=${apiKey}`)
     .then(response => response.json())
     .then(data => {
@@ -55,73 +54,14 @@ document.addEventListener('DOMContentLoaded', function() {
         getRandomRecipes(count);
     });
 
-    function searchRecipes(searchQuery) {
-        const recipeItems = document.querySelectorAll('.recipe-item');
-        recipeItems.forEach(item => {
-            const title = item.querySelector('h3').textContent.toLowerCase();
-            item.style.display = title.includes(searchQuery) ? '' : 'none';
-        });
-    }
-
-    function filterByIngredients(userInput) {
-        const userIngredients = userInput.split(',').map(ingredient => ingredient.trim().toLowerCase());
-        const recipeItems = document.querySelectorAll('.recipe-item');
-
-        recipeItems.forEach(item => {
-            const recipeIngredients = item.dataset.ingredients.toLowerCase().split(',').map(ingredient => ingredient.trim());
-            const isMatch = userIngredients.some(userIng => 
-                recipeIngredients.some(recipeIng => recipeIng.includes(userIng))
-            );
-            item.style.display = isMatch ? '' : 'none';
-        });
-    }
-
-    function getRandomRecipes(count) {
-        const recipeItems = Array.from(document.querySelectorAll('.recipe-item'));
-        if (recipeItems.length === 0 || isNaN(count) || count <= 0) {
-            // Handle the case where there are no recipes or count is invalid
-            return;
-        }
-
-        // Shuffling the array and slicing it to get 'count' number of recipes
-        const shuffled = recipeItems.sort(() => 0.5 - Math.random());
-        const selectedRecipes = shuffled.slice(0, count);
-
-        // Display only the selected recipes
-        recipeItems.forEach(item => item.style.display = 'none');
-        selectedRecipes.forEach(item => item.style.display = '');
-    }
-
-    function showRecipeDetails(recipeData) {
-        const title = recipeData[0];
-        const description = recipeData[1];
-        const ingredients = recipeData[2];
-        const instructionText = recipeData[3];
-
-        const instructionSteps = instructionText.split('.').filter(Boolean);
-        const formattedInstructions = instructionSteps.map(step => `<li>${step.trim()}.</li><br>`).join('');
-
-        const detailsContent = document.getElementById('recipe-details-content');
-        detailsContent.innerHTML = `
-            <h2>${title}</h2>
-            <p>${description}</p>
-            <h3>Ingredients</h3>
-            <ul>${ingredients.split(',').map(ingredient => `<li>${ingredient.trim()}</li>`).join('')}</ul>
-            <h3>Instructions</h3>
-            <ol>${formattedInstructions}</ol>
-        `;
-
-        document.getElementById('recipe-list').style.display = 'none';
-        document.getElementById('recipe-details-page').style.display = 'block';
-    }
-
-    window.backToList = function() {
-        document.getElementById('recipe-list').style.display = 'block';
-        document.getElementById('recipe-details-page').style.display = 'none';
-    };
+    // Toggle Chatbot
+    const chatbotContainer = document.getElementById('chatbot-container');
+    document.getElementById('toggleChatbotBtn').addEventListener('click', function() {
+        chatbotContainer.style.display = chatbotContainer.style.display === 'block' ? 'none' : 'block';
+    });
 });
 
-
+// Event listener for login form submission
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
     // Login logic here
@@ -129,6 +69,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     document.getElementById('cookbook-container').style.display = 'block';
 });
 
+// Chatbot message sending function
 function sendChatbotMessage() {
     const inputField = document.getElementById('chatbotInput');
     const userMessage = inputField.value.trim();
@@ -143,12 +84,13 @@ function sendChatbotMessage() {
     }
 }
 
+// Function to display messages in the chatbot
 function displayMessage(sender, message) {
     const chatMessages = document.getElementById('chatbot-messages');
     const messageElement = document.createElement('div');
     messageElement.textContent = sender + ": " + message;
     chatMessages.appendChild(messageElement);
-    chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the latest message
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 function getIngredientAlternative(ingredientQuery) {
@@ -198,6 +140,7 @@ function clearChat() {
     const chatMessages = document.getElementById('chatbot-messages');
     chatMessages.innerHTML = ''; // This clears the content of the chat
 }
+
 
 
 // Add event listener to the chatbot send button
