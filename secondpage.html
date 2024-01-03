@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fitness Tracker - I Could Eat This Erryday</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js Library -->
+</head>
+<body>
+    <header>
+        <h1>Fitness Tracker</h1>
+        <nav>
+            <a href="index.html" class="home-button">Recipes</a>
+        </nav>
+    </header>
+    <main>
+        <section class="tracker-section">
+            <h2>Fitness Data</h2>
+
+            <!-- Dropdown for Exercise Selection -->
+            <div class="exercise-dropdown">
+                <label for="exerciseSelect">View Progress:</label>
+                <select id="exerciseSelect">
+                    <!-- Options will be dynamically generated -->
+                </select>
+            </div>
+            
+
+            <!-- Accordion for Data Display -->
+            <div id="accordion">
+                <!-- Accordion items will be dynamically generated here -->
+            </div>
+
+            
+
+            <!-- Container for Graph -->
+            <canvas id="exerciseGraph"></canvas>
+
+            <div class="one-rep-max-calculator">
+                <h3>Calculate Your 1 Rep Max</h3>
+                <input type="number" id="weightInput" placeholder="Enter weight">
+                <input type="number" id="repsInput" placeholder="Enter reps">
+                <button onclick="calculateOneRepMax()">Calculate 1RM</button>
+                <p id="oneRepMaxResult"></p>
+            </div>
+
+            
+        </section>
+    </main>
+    <footer>
+        <p>© 2023 I Could Eat This Erryday</p>
+    </footer>
+    <script>
+        const apiKey = 'AIzaSyBi4E-C6QqGC8XWadQMwX0ZB-Ohoz7a5_M';
+        const sheetId = '16XihpA3z4QLKG-mvN8thZUWto4F55rR7GXxKD92aWvo';
+        const sheetName = 'fitness';
+        let rows = []; // Store all rows here
+
+        function fetchFitnessData() {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}?key=${apiKey}`;
+
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                rows = data.values;
+                let exercises = new Set();
+                let categories = {};
+
+                rows.forEach((row, index) => {
+                    if (index === 0 || !row[0] || !row[1]) return; // Skip header row or empty rows
+                    const category = row[4]; // Column E for category
+                    const exercise = row[1]; // Column B for exercise
+                    const date = new Date(row[0]); // Column A for date
+                    exercises.add(exercise);
+                    if (!categories[category]) {
+                        categories[category] = {};
+                    }
+                    if (!categories[category][exercise] || categories[category][exercise].date < date) {
+                        categories[category][exercise] = { date, data: row };
+                    }
+                });
+
+                populateDropdown(exercises);
+                createAccordion(categories);
+            })
+            .catch(error => console.error('Error fetching data: ', error));
+        }
+
+        function populateDropdown(exercises) {
+            const select = document.getElementById('exerciseSelect');
+            exercises.forEach(exercise => {
+                let option = document.createElement('option');
+                option.value = exercise;
+                option.text = exercise;
+                select.appendChild(option);
+            });
+            select.addEventListener('change', function() {
+                const selectedExercise = this.value;
+                renderGraph(selectedExercise);
+            });
+        }
+
+        function createAccordion(categories) {
+            const accordionContainer = document.getElementById('accordion');
+            Object.keys(categories).forEach(category => {
+                // Create accordion item for category
+                const accordion = document.createElement('button');
+                accordion.innerText = category;
+                accordion.classList.add('accordion');
+                accordionContainer.appendChild(accordion);
+
+                // Create panel content for category
+                const panel = document.createElement('div');
+                panel.classList.add('panel');
+                let htmlContent = '<table><tr><th>Date</th><th>Exercise</th><th>Weight</th><th>Reps</th></tr>';
+                
+                Object.values(categories[category]).forEach(({ data }) => {
+                    htmlContent += `<tr><td>${data[0]}</td><td>${data[1]}</td><td>${data[2]}</td><td>${data[3]}</td></tr>`;
+                });
+
+                htmlContent += '</table>';
+                panel.innerHTML = htmlContent;
+                accordionContainer.appendChild(panel);
+
+                accordion.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === 'block') {
+                        panel.style.display = 'none';
+                    } else {
+                        panel.style.display = 'block';
+                    }
+                });
+            });
+        }
+
+        let exerciseChart = null;
+        
+        
+        function calculateOneRepMax() {
+            const weight = parseFloat(document.getElementById('weightInput').value);
+            const reps = parseFloat(document.getElementById('repsInput').value);
+
+            if (weight && reps && reps > 0) {
+                const oneRepMax = weight / (1.0278 - 0.0278 * reps);
+                document.getElementById('oneRepMaxResult').innerText = `Your estimated 1RM is: ${oneRepMax.toFixed(2)} lbs`;
+            } else {
+                document.getElementById('oneRepMaxResult').innerText = "Please enter valid weight and reps";
+            }
+        }
+
+            function startInactivityTimeout() {
+            // Time in milliseconds (5 minutes)
+            const timeoutDuration = 15 * 60 * 1000; 
+            
+            // Log out function
+            function logout() {
+                localStorage.removeItem('isLoggedIn');
+                alert('You have been logged out due to inactivity.');
+                // Redirect to login page or change display properties
+                window.location.href = 'index.html'; // Redirect to login page
+            }
+
+            let timeout;
+
+            // Reset the timer on user activity
+            function resetTimeout() {
+                clearTimeout(timeout);
+                timeout = setTimeout(logout, timeoutDuration);
+            }
+
+            // Listen for user activity
+            window.onload = resetTimeout;
+            document.onmousemove = resetTimeout;
+            document.onkeypress = resetTimeout;
+            document.onclick = resetTimeout;
+            document.onscroll = resetTimeout;
+
+            // Start the timer
+            timeout = setTimeout(logout, timeoutDuration);
+        }
+
+        // Call the function
+        startInactivityTimeout();
+
+
+        function renderGraph(exercise) {
+            // Filter data for the selected exercise
+            let filteredData = rows.filter(row => row[1] === exercise);
+            let graphData = {
+                labels: filteredData.map(row => new Date(row[0]).toLocaleDateString()),
+                datasets: [{
+                    label: exercise,
+                    data: filteredData.map(row => row[2]),
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            };
+
+            var ctx = document.getElementById('exerciseGraph').getContext('2d');
+
+            if (exerciseChart) {
+                // Update the existing chart's data
+                exerciseChart.data = graphData;
+                exerciseChart.update();
+            } else {
+                // Create a new chart
+                exerciseChart = new Chart(ctx, {
+                    type: 'line', // Change to your preferred type
+                    data: graphData,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        window.onload = fetchFitnessData;
+    </script>
+    
+    
+</body>
+</html>
