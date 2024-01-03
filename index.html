@@ -33,15 +33,15 @@
     </div>
 
     <!-- Chatbot Toggle Button -->
-    <button id="toggleChatbotBtn" style="position: fixed; bottom: 20px; right: 340px;">Chatbot</button>
+    <button id="toggleChatbotBtn">Chatbot</button>
 
     <!-- Chatbot Container -->
     <div id="chatbot-container" style="display: none;">
         <h3>Ingredient Alternatives</h3>
-        <div id="chatbot-messages" style="height:200px; overflow-y:auto; background:#f0f0f0; padding:10px;">
+        <div id="chatbot-messages">
             <!-- Chat messages will be displayed here -->
         </div>
-        <input type="text" id="chatbotInput" placeholder="Ask for an ingredient alternative..." style="width:70%;">
+        <input type="text" id="chatbotInput" placeholder="Ask for an ingredient alternative...">
         <button id="chatbotSendBtn" onclick="sendChatbotMessage()">Send</button>
         <button id="clearChatBtn" onclick="clearChat()">Clear Chat</button>
     </div>
