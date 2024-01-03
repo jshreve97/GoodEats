@@ -133,12 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    // Login logic here
-    document.getElementById('login-container').style.display = 'none';
-    document.getElementById('cookbook-container').style.display = 'block';
-});
+
 
 function sendChatbotMessage() {
     const inputField = document.getElementById('chatbotInput');
