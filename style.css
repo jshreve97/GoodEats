@@ -231,12 +231,13 @@ canvas {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 300px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 15px;
     border-radius: 10px;
     z-index: 1000;
+    /* Default width for larger screens */
+    width: 300px;
 }
 
 #chatbot-messages {
@@ -329,9 +330,9 @@ canvas {
     }
 
     #chatbot-container {
-        bottom: 60px; /* Positioning above the toggle button */
+        bottom: 10px; /* Positioning above the toggle button */
         right: 10px; /* Aligning to the right */
-        width: 95%; /* Adjusting width for smaller screens */
+        width: 60%; /* Adjusting width for smaller screens */
         border-radius: 5px; /* Optional: Rounded corners for aesthetics */
     }
 }
