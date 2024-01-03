@@ -164,8 +164,10 @@ footer {
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-    body {
-        font-size: 90%;
+    #toggleChatbotBtn {
+        bottom: 10px; /* Adjust bottom position */
+        right: 10px; /* Ensure it is on the right */
+        font-size: 14px;
     }
 
     header {
@@ -190,23 +192,22 @@ footer {
     }
 
     #chatbot-container {
-        width: 100%;
-        bottom: 50px;
-        right: 0;
-        border-radius: 0;
+        bottom: 60px; /* Adjust bottom position to avoid overlap */
+        right: 0; /* Align to the right */
+        width: 100%; /* Full width on smaller screens */
     }
 
     #toggleChatbotBtn {
-        right: 10px;
         bottom: 10px;
+        right: 10px;
         font-size: 14px;
     }
 }
 
 @media (max-width: 480px) {
-    .second-page-button-container {
-        top: 160px;
-        right: 10px;
+    #toggleChatbotBtn {
+        bottom: 10px; /* Further adjust for smaller screens */
+        right: 10px; /* Ensure it remains on the right */
     }
 }
 
@@ -299,10 +300,11 @@ canvas {
     margin-bottom: 10px;
 }
 
+/* Chatbot Toggle Button Style */
 #toggleChatbotBtn {
     position: fixed;
-    bottom: 20px; 
-    right: 20px;
+    bottom: 20px;
+    right: 20px; /* Positioning on the bottom right */
     padding: 10px 15px;
     background-color: #4CAF50;
     color: white;
@@ -310,9 +312,33 @@ canvas {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    z-index: 1001;
+    z-index: 1001; /* Ensuring it's above other elements */
 }
 
 #toggleChatbotBtn:hover {
     background-color: #45a049;
+}
+
+
+/* Responsive Adjustments for Smaller Screens */
+@media (max-width: 768px) {
+    #toggleChatbotBtn {
+        bottom: 10px; /* Adjust for better accessibility */
+        right: 10px; /* Keeping it to the right */
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+
+    #chatbot-container {
+        bottom: 60px; /* Positioning above the toggle button */
+        right: 10px; /* Aligning to the right */
+        width: 95%; /* Adjusting width for smaller screens */
+        border-radius: 5px; /* Optional: Rounded corners for aesthetics */
+    }
+}
+
+@media (max-width: 480px) {
+    #toggleChatbotBtn {
+        bottom: 10px;
+        right: 10px;
+    }
 }
